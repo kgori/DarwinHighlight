@@ -1,4 +1,4 @@
-##Darwin Syntax Highlighting for Sublime Text 2
+##Darwin Syntax Highlighting for Sublime Texts 2 and 3
 
 Sublime Text / Textmate compatible syntax highlighting for the [__Darwin__](http://www.cbrg.ethz.ch/darwin) language.
 
