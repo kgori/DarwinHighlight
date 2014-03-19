@@ -1,13 +1,13 @@
 {
-    "name": "Comments", 
-    "scope": "source.darwin", 
+    "name": "Comments",
+    "scope": "source.darwin",
     "settings": {
         "shellVariables": [
             {
-                "name": "TM_COMMENT_START", 
+                "name": "TM_COMMENT_START",
                 "value": "# "
             }
         ]
-    }, 
+    },
     "uuid": "fb13c14f-e95c-11e2-96fa-3c0754394a10"
 }

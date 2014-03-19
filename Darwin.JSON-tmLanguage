@@ -1,49 +1,301 @@
-{ "name": "Darwin",
-	"scopeName": "source.darwin",
-	"fileTypes": ["drw"],
-	"patterns": [
-		{
-            "captures": {
-                "1": {
-                    "name": "punctuation.definition.comment.darwin"
+{
+    "foldingStartMarker": "^\\s*(function|if|switch|while|for|try)\\b(?!.*\\bend\\b).*$",
+    "scopeName": "source.darwin",
+    "fileTypes": [
+        "drw"
+    ],
+    "name": "Darwin",
+    "keyEquivalent": "^@D",
+    "patterns": [
+        {
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.parameters.darwin"
                 }
-            }, 
-            "match": "(#).*$\\n?", 
-            "name": "comment.line.number-sign.darwin"
-        }, 
+            },
+            "beginCaptures": {
+                "0": {
+                    "name": "entity.name.function.darwin"
+                }
+            },
+            "begin": "(?x)\n\t\t\t\t\t(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?) # the method name\n\t\t\t\t\t# \\s*:=\\s*proc)\t\n\t\t\t\t\t\\s*:=\\s*\t\t\t# assignment\n\t\t\t         proc\\s*\t\t\t# the proc keyword\t\t\t         \\s*(\\()\t\t\t\t\t\t# the openning parenthesis for arguments\n\t\t\t        ",
+            "contentName": "variable.parameter.input.function.darwin",
+            "name": "meta.function.with-arguments.darwin",
+            "end": "\\)"
+        },
         {
-            "match": "\\b(?i:(\\d+e[\\-\\+]?\\d+))", 
-            "name": "constant.numeric.float.darwin"
-        }, 
+            "include": "#brackets"
+        },
         {
-            "match": "\\b([1-9]+[0-9]*|0)", 
-            "name": "constant.numeric.integer.decimal.darwin"
-        }, 
-		{
-			"match": "\\b(for|from|to|do|od|if|If|then|elif|else|fi|by|quit)\\b",
-			"name": "keyword.darwin"
-		},
-		{
-			"match": "(\\\\n|\\\\t)",
-			"name": "constant.character.escape.darwin"
-		},
-		{
-			"captures": {
-				"1": {
-					"name": "storage.type.function"
-				}
-			},
-			"match": "\\b(proc|return|end)\\b"
-		},
-		{
-			"match": "\\:\\=",
-			"name": "keyword.operator.assignment.darwin"
-
-		},
-		{
-			"match": "<\\=|>\\=|<|>|\\=|<>",
-			"name": "keyword.operator.comparison.darwin"
-		}
-	],
-	"uuid": "80f96d7b-6e03-4c02-aadd-746648a7d6b4"
+            "include": "#curlybrackets"
+        },
+        {
+            "include": "#parens"
+        },
+        {
+            "include": "#string"
+        },
+        {
+            "include": "#transpose"
+        },
+        {
+            "include": "#double_quote"
+        },
+        {
+            "include": "#operators"
+        },
+        {
+            "include": "#all_darwin_keywords"
+        },
+        {
+            "include": "#all_darwin_comments"
+        },
+        {
+            "include": "#number"
+        },
+        {
+            "include": "#variable"
+        }
+    ],
+    "repository": {
+        "double_quote": {
+            "patterns": [
+                {
+                    "match": "\"",
+                    "name": "invalid.illegal.invalid-quote.darwin"
+                }
+            ]
+        },
+        "all_darwin_keywords": {
+            "patterns": [
+                {
+                    "include": "#darwin_type"
+                },
+                {
+                    "include": "#darwin_constant_language"
+                },
+                {
+                    "include": "#darwin_keyword"
+                },
+                {
+                    "include": "#darwin_keyword_other"
+                },
+                {
+                    "include": "#darwin_keyword_lib"
+                }
+            ]
+        },
+        "darwin_keyword_lib": {
+            "comment": "Library Keywords",
+            "match": "(?<!\\.)\\b(AAAToInt|Alignment|AminoToInt|assign|AaFreqNoPat|AlignNucPepAll|antiparallel|assigned|abbreviation|AlignNucPepMatch|APC|AToCInt|AlignOneAll|AToCodon|AC|AllIndices|ApproxSearchString|ActOut|AllQueryGrid|AToInt|AddGrid|AllRootedTrees|AddSpecies|AllTernaryRoots|AsciiToInt|Align|AltGenCode|AlignedSeq|BackTranscribe|BBBToInt|BinTree|BrightenColor|BackTranslate|BestSearchString|BipartiteGraph|BToInt|BaseCount|Beta_Rand|Block|BaseToInt|Binomial_Rand|BootstrapTree|CalculateScore|Code|Complex|CreateCodonMatrices|CallExternal|CodonAlign|CreateCProgram|CallSystem|CodonCode|CompressGrid|CreateDayMatrices|CaseSearchString|CodonCount|ComputeCAI|CreateDayMatrix|CodonDynProgStrings|ComputeCAIVector|CreateGrid|CenterTreeRoot|CodonMatrix|ComputeCubicTSP|CreateMSAMethods|ChangeLeafLabels|CodonMutate|ComputeDimensionlessFit|CreateOrigDayMatrix|CheckAmbigTree|CodonPamToPam|ComputeQuarticTSP|CreateRandMultAlign|ChiSquare_Rand|CodonToA|ComputeTPI|CreateRandPermutation|Cholesky|CodonToCInt|ComputeTSP|CreateRandSeq|CIntToA|CodonToInt|ConcatStrings|CreateString|CIntToAAA|CodonUsage|ConnectTcp|CreateSynMatrices|CIntToAmino|ConsistentGenome|CreateTreeConstruction|CIntToCodon|Collapse|conversion|CreateTreeConstructions|CIntToInt|CollapseNodes|convolve|CreateTreeStatistics|CircularTour|CollectStat|Cumulative|Clique|Color|CumulativeStd|CloseGrid|ColorPalette|CurrentOff|Clustal|Counter|ClusterRelPam|Complement|Covariance|Clusters|ComplementSequence|CreateArray|Description|Domain|DrawTree|DigestAspN|DomainParameter|DigestionWeights|DownloadURL|dSplitGraph|dSplitIndex|DataMatrix|DigestSeq|dSplitMetricSum|DigestTrypsin|DrawDistribution|dSplits|DayMatrix|DigestWeights|DrawDotplot|DynProgGap|DayMatrixScale|DrawGraph|DynProgMass|DBL_EPSILON|DisconMinimize|DrawHistogram|DynProgMassDb|DBL_MAX|DisconnectTcp|DrawPlot|DynProgNucPepString|DbToDarwin|DM|DrawPointDistribution|DynProgScore|DMS|DrawSplitGraph|DynProgStrings|Document|DrawSplits|Denormalize|DoGapHeuristic|DrawStackedBar|Edge|EstimatePam|ExpandFileName|EdgeComplement|EOF|EstimatePB93|ExpFit|Edges|EstimateSynPAM|ExpFit2|Eigenvalues|Exponential_Rand|EnterProfile|Entries|EvolTree|ExtendClass|Entry|EstimateCodonPAM|ExitProfile|EstimateNG86|FindCircularOrder|FindKey|FindSpeciesViolations|FDist_Rand|FindConnectedComponents|FindLongestRep|FileStat|FindEntropy|FindNucPepPam|FlushGrid|FindBestScore|FindHighlyExpressedGenes|FindRules|Gamma|GetAaFrequency|GetNextGrid|GOdownload|GammaDist_Rand|GetAllNucPepMatches|GetOffset|GOname|Gap|GetComplement|GetPartitions|GOnumber|GapHeuristic|GetEntryInfo|GetPathDistance|GOsubclass|GapMatch|GetEntryNumber|GetPeptides|GOsubclassR|GapTree|GetFileInfo|GOsuperclass|GaussElim|GetGramRegionScore|GetPosition|GOsuperclassR|gc|GetGramSiteScore|GetSubTree_r|GramRegion| GetIntrons|GetTreeLabels|GramSchmidt|Gene|GetLcaSubtree|GramSite|GeneticCode|GetMachineUsage|GivensElim|Graph|GenomeSummary|GetMATreeNew|GlobalNucPepAlign|Graph_Rand|Geometric_Rand|GetMolWeight|Globals|GridFile|GetAaCount|GetMostFrequentGrams|GOdefinition|HammingSearchAllString|HTMLColor|HTMLRows|HammingSearchString|HTMLColorprint|HTMLTitle| History|HTMLCols|HTMLprint|ID|Inherit|IntToAAA|IdenticalTrees|IntToAmino|Identity|Interior|IntToAscii|InteriorTot|IntToB|IsolationIndex|IntToBase|IntOut|IntToBBB| InduceGraph|Intron|IntToCInt|Infix|IntronModel|IntToCodon|InfixNr|IntToA|KWIndex|LinearClassification|LnGamma|LinearClassify|Lngamma|LongInteger|Leaf|LinearIntron|lnProbBallsBoxes| LeastSquaresTree|LinearRegression|Leaves|LocalNucPepAlign|LSBestDelete| LocalNucPepAlignBestPam|LSBestSum|LSBestSumDelete|Machine|MinimizeBrent|MafftMSA|MaxCut|MinimizeFunc|MST|MAlign|MaxEdgeWeightClique|MinimizeSD|Multinomial_Rand|MAlignment|MaximizeFunc|MinSquareTree|MultipleSubTree|MapGrid|MaximizeRD|Mutate|MapleFormula|MaxLikelihoodSize|MLTreeResult|MySql|Match|MySqlResult|Matrices|member|MsaList|matrix|min|MSAMethod|matrix_inverse|Minimize2DFunc|MSAStatistics|NucDB|NucPepDynProg|Normal_Rand|NucID|NucPepMatch|NBody|Normalize|NucPepRegions|Nodes|NSubGene|NucPepBackDynProg|NULL|OpenGrid|OutsideBounds|OpenPipe|OptionalParameters|OpenReading|OrthologousGroup|OpenAppending|OpenWriting|Orthologues|PamMax|PASfromMSA|Postfix|ProbCloseMatches|PamToCodonPam|PASfromTree|PostscriptFigure|ProbDynProg|PamToPerIdent|PatEntry|PredictGenes|ProbIndex|PamWindows|Path|Prefix|ProbSeq|Paragraph|PepDB|Primes|ParallelAllNucPepMatches|PerIdentToPam|Process|ParExecuteIPC|Permutation|ParExecuteTest|PhylogeneticTree|PrintIndex|Pi|PrintInfo|Protect|ParseNewickTree|Plot2Gif|Protein|ParsePred|PlotArguments|PrintMatrix|PruneTree|PartialFraction|PlotIndex|PSDynProg|Partitions|Poisson_Rand|PrintStringMatch|PSubGene|Partitions_GetConflicts|Polar|PrintTreeSeq|Partitions_GetTree|PolishAngles|ProbAncestor|Partitions_ResolveConflicts|PositionTree|ProbBallsBoxes|QueryGrid|Rand|ReadLine|ReconcileTree|Reverse|Rank|ReadOffsetLine|RedoCompletion|RGB_string|RAxML|ReadProgram|RobinsonFoulds|RBFS_Tree|ReadRawFile|Region|Roman|Readability|ReadRawLine|RegularGraph|Romberg|ReadBrk|ReadTable|RelativeAdaptiveness|RotateTree|ReadData|ReadTcp|ReadDb|ReadURL|ReplaceString|RSCU|ReadDssp|ReceiveDataTcp|RunDarwinSession|ReadLibrary|ReceiveTcp|SaveEntries|SearchString|SignedSynteny|SearchTag|string_RGB|ScaleIndex|ScoreAlignment|Student_Rand|ScoreIntron|SendDataTcp|SmallAllAll|SubDist|ScoreNonSyn|SendTcp|ScoreSyn|SortedMA|SearchAC| SP_Species|SubTree|SearchAllArray|Sequence|SPCommonName|SearchAllString|Sequences|Species_Entry|Surface|SearchArray|Set|SpeciesCode|SurfaceTot|SearchDayMatrix|SplitLines|SurfIntActPred|SearchDb|SetRand|SurfOut|SearchDelim|SetRandSeed|SpToDarwin|SvdAnalysis|SearchFrag|SetupRA| SvdBestBasis|SearchID|SetuptRNA|SvdResult|SearchMassDb|ShortestPath|StatTest| SearchMultipleString|Shuffle|Synteny|SearchOrderedArray|Std_Score|SystemCommand|SearchSeqDb|Signature|StoreKey|Table|TextHead|Translate|TreeSize|TreeStatistics|TimedCallSystem|TreeToPam|TaxonId|TotalAlign|Tree|TempName|TotalTreeWeight|Tree_Graph|TT|TestStatResult|TPIDistr|TreeAngles|TetrahedronGraph|Transcribe|TreeConstruction|UnassignGlobals|UnionFind|UpdateStat|UncompressGrid|UnlabelLeaves|UpdateSpeciesCode|UTCTime|VertexCover|ViewPlot|View|VisualizeProtein|WeightObservations|WriteBlock|WriteData|WriteFasta)\\b",
+            "name": "keyword.lib.darwin"
+        },
+        "allofem": {
+            "patterns": [
+                {
+                    "include": "#parens"
+                },
+                {
+                    "include": "#curlybrackets"
+                },
+                {
+                    "include": "#end_in_parens"
+                },
+                {
+                    "include": "#brackets"
+                },
+                {
+                    "include": "#string"
+                },
+                {
+                    "include": "#transpose"
+                },
+                {
+                    "include": "#double_quote"
+                },
+                {
+                    "include": "#all_darwin_keywords"
+                },
+                {
+                    "include": "#all_darwin_comments"
+                },
+                {
+                    "include": "#variable"
+                },
+                {
+                    "include": "#number"
+                },
+                {
+                    "include": "#operators"
+                }
+            ]
+        },
+        "end_in_parens": {
+            "comment": "end as operator symbol",
+            "match": "\\bend\\b",
+            "name": "keyword.operator.symbols.darwin"
+        },
+        "all_darwin_comments": {
+            "patterns": [
+                {
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.comment.darwin"
+                        }
+                    },
+                    "match": "(#).*$\\n?",
+                    "name": "comment.line.hashtag.darwin"
+                }
+            ]
+        },
+        "darwin_constant_language": {
+            "comment": "Darwin Constants",
+            "match": "(?<!\\.)\\b(DBL_EPSILON|DBL_MAX|false|Inf|NaN|nan|Pi|true)\\b",
+            "name": "constant.language.darwin"
+        },
+        "brackets": {
+            "endCaptures": {
+                "0": {
+                    "name": "meta.brackets.darwin"
+                }
+            },
+            "beginCaptures": {
+                "0": {
+                    "name": "meta.brackets.darwin"
+                }
+            },
+            "begin": "\\[",
+            "contentName": "meta.brackets.darwin",
+            "end": "\\]",
+            "patterns": [
+                {
+                    "include": "#allofem"
+                }
+            ]
+        },
+        "parens": {
+            "endCaptures": {
+                "0": {
+                    "name": "meta.parens.darwin"
+                }
+            },
+            "beginCaptures": {
+                "0": {
+                    "name": "meta.parens.darwin"
+                }
+            },
+            "begin": "\\(",
+            "contentName": "meta.parens.darwin",
+            "end": "\\)",
+            "patterns": [
+                {
+                    "include": "#allofem"
+                },
+                {
+                    "include": "#end_in_parens"
+                }
+            ]
+        },
+        "string": {
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.end.darwin"
+                }
+            },
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.begin.darwin"
+                }
+            },
+            "begin": "((?<=(\\[|\\(|\\{|=|\\s|;|:|,))|^)'",
+            "name": "string.quoted.single.darwin",
+            "end": "'(?=(\\]|\\)|\\}|=|~|<|>|&|\\||-|\\+|\\*|\\.|\\^|\\||\\s|;|:|,))",
+            "patterns": [
+                {
+                    "include": "#escaped_quote"
+                },
+                {
+                    "include": "#unescaped_quote"
+                },
+                {
+                    "include": "#special_characters"
+                }
+            ]
+        },
+        "special_characters": {
+            "comment": "Operator symbols",
+            "match": "((\\%([\\+\\-0]?\\d{0,3}(\\.\\d{1,3})?)(c|d|e|E|f|g|G|s|((b|t)?(o|u|x|X))))|\\%\\%|\\\\(b|f|n|r|t|\\\\))",
+            "name": "constant.character.escape.darwin"
+        },
+        "curlybrackets": {
+            "endCaptures": {
+                "0": {
+                    "name": "meta.brackets.curly.darwin"
+                }
+            },
+            "beginCaptures": {
+                "0": {
+                    "name": "meta.brackets.curly.darwin"
+                }
+            },
+            "begin": "\\{",
+            "contentName": "meta.brackets.curly.darwin",
+            "end": "\\}",
+            "patterns": [
+                {
+                    "include": "#allofem"
+                },
+                {
+                    "include": "#end_in_parens"
+                }
+            ]
+        },
+        "darwin_keyword_other": {
+            "comment": "Other keywords",
+            "match": "(?<!\\.)\\b(compress|atoi|abs|append|arcsin|arctan|avg|assemble|aminoacids|assert|ceil|coeff|copy|cor|cos|commandline|database|dprint|date|disassemble|debug|decompress|enzymes|erf|erfc|erfcinv|evalb|expx1|enum|exp|factorial|floor|getpid|gcd|hastype|help|gigahertz|has|hydrophobicity|hash|hostname|ipcsend|inputoutput|iquo|islower|ilogb|intersect|isupper|indets|iterate|iterator|invlogit|lasterror|libname|ln1x|log10|latex|logit|lcoeff|lowercase|lprint|length|list|lg|ln|log|max|mselect|minus|median|mod|names|naming|nucleotides|op|procedure|print|printf|product|profiling|printlevel|prints|regexp|remember|round|returntype|string|scalb|sin|selector|size|structures|selectorfunction|sleep|sort|subs|seq|subset|sequal|sum|set|sprintf|sqrt|sscanf|symbol|std|sign|table|time|transpose|tan|traperror|trunc|type|types|uppercase|union|var|version|structure|Param)\\b",
+            "name": "keyword.other.darwin"
+        },
+        "escaped_quote": {
+            "patterns": [
+                {
+                    "match": "''",
+                    "name": "constant.character.escape.darwin"
+                }
+            ]
+        },
+        "operators": {
+            "comment": "Operator symbols",
+            "match": "\\s*(==|~=|>|>=|<|<=|&|&&|:|\\||\\|\\||\\+|-|\\*|\\.\\*|/|\\./|\\\\|\\.\\\\|\\^|\\.\\^)\\s*",
+            "name": "keyword.operator.symbols.darwin"
+        },
+        "darwin_keyword": {
+            "comment": "General keywords",
+            "match": "(?<!\\.)\\b(true|false|try|catch|return|break|error|module|export|local|option|in|use|and|or|not|xor|xnor|if|then|elif|else|fi|while|for|from|by|to|do|od|proc|nargs|local|global|end|NULL|eval|noeval|parse|expseq|plus|times|true|false|try|catch|return|break|error|module|export|local|option|in|use|and|or|not|xor|xnor|if|then|elif|else|fi|while|for|from|by|to|do|od|proc|nargs|local|global|end|NULL|eval|noeval|parse|expseq|plus|times)\\b",
+            "name": "keyword.control.darwin"
+        },
+        "variable": {
+            "comment": "Valid variable. Added meta to disable highlighting",
+            "match": "\\b[a-zA-Z]\\w*\\b",
+            "name": "meta.variable.other.valid.darwin"
+        },
+        "transpose": {
+            "match": "((\\w+)|(?<=\\])|(?<=\\)))\\.?'",
+            "name": "keyword.operator.transpose.darwin"
+        },
+        "darwin_type": {
+            "comment": "Darwin Types",
+            "match": "(?<!\\.)\\b(AcceptCriteria|EvolTree|Machine|power|algebraic|expseq|MAlignment|ProbSeq|Alignment|float|MapleFormula|procedure|And|Fold|Match|Process|anything|Font|matrix|range|array|ForLoop|MLTreeResult|relation|Assign|Gap|MsaList|Residue|Block|GapHeuristic|MSAMethod|RNA|Bold|GapMatch|MSAStatistics|SectionHeader|boolean|Gene|MySqlResult|select|catenate|GenomeSummary|name|set|Center|GramRegion|negative|Size|Chain|GramSite|Nodes|Stat|Code|Graph|nonnegative|StatSeq|CodonMatrix|GridFile|Not|Stop||Complex|HelpEntry|NucPepMatch|string|compressed|History|numeric|structure|constant|HyperLink|Or|SvdResult|Copyright|IfStat|OrthologousGroup|symbol|Counter|Indent|Pair|Table|Covariance|integer|Paragraph|table|database|IntronModel|Param|Target|DataMatrix|Island|Parsimonious|TestStatResult|DayMatrix|IT|Partitions|times|Description|LastUpdatedBy|PatEntry|Tree|DNA|Leaf|Permutation|TreeConstruction|Document|less|PlotArguments|TreeStatistics|Domain|lessequal|plus|TT|DomainParameter|LinearClassification|PlusMin|type|Edge|List|Polar|unequal|Edges|list|posint|UnionFind|Entry|Local|positive|VectorDB|equal|LongInteger|PostscriptFigure)\\b",
+            "name": "type.language.darwin"
+        },
+        "unescaped_quote": {
+            "patterns": [
+                {
+                    "match": "'(?=.)",
+                    "name": "invalid.illegal.unescaped-quote.darwin"
+                }
+            ]
+        }
+    },
+    "uuid": "191B8D30-303D-48F6-99BE-F669A747BC61",
+    "foldingStopMarker": "^\\s*(end|return|fi|od)\\b.*$"
 }
